@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 function SearchBar({ handleSearch }) {
-  const [userInput, setUserInput] = useState({ keyWord: "", inStock: null });
+  const [userInput, setUserInput] = useState({ keyWord: "", inStock: false });
 
   const handleChange = (e) => {
     const { name, checked, type, value } = e.target;
