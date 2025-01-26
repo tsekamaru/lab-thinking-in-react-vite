@@ -7,25 +7,20 @@ import ProductTable from "./ProductTable";
 
 function ProductsPage() {
   const [products, setProducts] = useState(jsonData);
-  const [userInput, setUserInput] = useState();
+  const [allProducts] = useState(jsonData);
 
-  const handleChange = (e) => {
-    const { name, checked, type, value } = e.target;
-    const input = type === "checkbox" ? checked : value;
-    setUserInput({ ...userInput, [name]: input });
+  const handleSearch = (userInput) => {
     setProducts(
-      jsonData.filter(
-        (item) =>
-          item.inStock === userInput.inStock &&
-          item.name.toLowerCase().includes(userInput.name.toLowerCase())
-      )
+      allProducts
+        .filter((product) => product.name.toLowerCase().includes(userInput.keyWord.toLowerCase()))
+        .filter((product) => (userInput.inStock ? product.inStock === userInput.inStock : true))
     );
   };
 
   return (
     <div className="mx-5">
       <h1>IronStore</h1>
-      <SearchBar handleChange={handleChange} />
+      <SearchBar handleSearch={handleSearch} />
       <ProductTable data={products} />
     </div>
   );
